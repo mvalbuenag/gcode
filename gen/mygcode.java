@@ -2,6 +2,7 @@
 public class mygcode extends gcodeBaseListener {
     boolean isFast = false;
     boolean isClock = false;
+    boolean isG51 = false;
     @Override
     public void enterCoordinates(gcodeParser.CoordinatesContext ctx) {
         String coordinates = "";
@@ -103,6 +104,84 @@ public class mygcode extends gcodeBaseListener {
             }
         }else{
             System.out.println("E" + ctx.NUM());
+        }
+    }
+
+    @Override
+    public void enterPause(gcodeParser.PauseContext ctx) {
+        System.out.print("G4 " + ctx.NUM().getText() + " ");
+    }
+
+    @Override
+    public void enterTime_unit(gcodeParser.Time_unitContext ctx) {
+        System.out.println(ctx.getText());
+    }
+
+    @Override
+    public void enterStop(gcodeParser.StopContext ctx) {
+        System.out.println("G9");
+    }
+
+    @Override
+    public void enterPlane2(gcodeParser.Plane2Context ctx) {
+        if(ctx.getText() != null){
+            if(ctx.getText().equals("XY")) System.out.println("G17");
+            if(ctx.getText().equals("ZX")) System.out.println("G18");
+            if(ctx.getText().equals("YZ")) System.out.println("G19");
+        }
+    }
+
+    @Override
+    public void enterUnit2(gcodeParser.Unit2Context ctx) {
+        if(ctx.getText() != null){
+            if(ctx.getText().equals("in")) System.out.println("G20");
+            if(ctx.getText().equals("mm")) System.out.println("G21");
+        }
+    }
+
+    @Override
+    public void enterPark(gcodeParser.ParkContext ctx) {
+        if(ctx.NUM() != null){
+            if(Integer.parseInt(ctx.NUM().getText() ) == 0 || Integer.parseInt(ctx.NUM().getText() ) == 1 || Integer.parseInt(ctx.NUM().getText() ) == 2){
+                System.out.println("G27 P" + ctx.NUM().getText());
+            }else{
+                System.err.printf("Error semantico, se esperaba en elevation un valor de 0, 1 o 2");
+                System.exit(-1);
+            }
+        }
+    }
+
+    @Override
+    public void enterVisit(gcodeParser.VisitContext ctx) {
+        System.out.print("G28 ");
+    }
+
+    @Override
+    public void enterTourist(gcodeParser.TouristContext ctx) {
+        System.out.print("G29 ");
+    }
+
+    @Override
+    public void enterScale2(gcodeParser.Scale2Context ctx) {
+        if(ctx.getText() != null){
+            if(ctx.getText().equals("not")){
+                if(isG51){
+                    System.out.println("G50");
+                    isG51 = false;
+                }else{
+                    System.out.println("G50");
+                    isG51 = false;
+                    System.out.println("WARNING -> Está usando el codigo 'scale not' sin antes haber especificado 'scale'");
+                }
+            }else{
+                if(Double.parseDouble(ctx.NUM().getText())>=0.001 && Double.parseDouble(ctx.NUM().getText())<=999.999){
+                    isG51 = true;
+                    System.out.println("G51 P" + ctx.NUM().getText());
+                }else{
+                    System.err.printf("Error semantico, se esperaba en by un número entre 0,001 y 999,999");
+                    System.exit(-1);
+                }
+            }
         }
     }
 }

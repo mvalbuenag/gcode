@@ -63,7 +63,7 @@ plane2: 'XY' | 'ZX' | 'YZ';
 unit: 'unit' unit2;
 unit2: 'in' | 'mm';
 
-park: 'park' 'elevation' NUM; // VALIDAR LOS VALORES DE ELEVATION EN TRADUCCION
+park: 'park' 'elevation' NUM;
 
 visit: 'visit' coordinates;
 tourist: 'tourist' coordinates;
