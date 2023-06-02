@@ -1,2 +1,1 @@
-scale by 1001
-scale not
+cycle spodtrill forward 5

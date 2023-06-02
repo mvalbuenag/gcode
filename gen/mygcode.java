@@ -184,4 +184,65 @@ public class mygcode extends gcodeBaseListener {
             }
         }
     }
+
+    @Override
+    public void exitCycle(gcodeParser.CycleContext ctx) {
+        int counter = 0;
+        if(ctx.TKN_RETRACT() != null){
+            System.out.print("R"+ctx.NUM(counter).getText()+" ");
+            counter++;
+        }
+        if(ctx.TKN_STAY() != null){
+            System.out.print("P"+ctx.NUM(counter).getText()+" ");
+            counter++;
+        }
+        if(ctx.TKN_FORWARD() != null){
+            System.out.print("F"+ctx.NUM(counter).getText()+" ");
+            counter++;
+        }
+        if(ctx.TKN_REPEAT() != null){
+            System.out.print("L"+ctx.NUM(counter).getText()+" ");
+        }
+    }
+
+    @Override
+    public void enterCycle2(gcodeParser.Cycle2Context ctx) {
+        if(ctx.getText() != null){
+            switch (ctx.getText()){
+                case "hspd":
+                    System.out.print("G73 ");
+                    break;
+                case "invtap":
+                    System.out.print("G74 ");
+                    break;
+                case "fineboring":
+                    System.out.print("G76 ");
+                    break;
+                case "backbore":
+                    System.out.print("G77 ");
+                    break;
+                case "drill":
+                    System.out.print("G81 ");
+                    break;
+                case "spodtrill":
+                    System.out.print("G82 ");
+                    break;
+                case "npdrill":
+                    System.out.print("G83 ");
+                    break;
+                case "tap":
+                    System.out.print("G84 ");
+                    break;
+                case "boreinout":
+                    System.out.print("G85 ");
+                    break;
+                case "borenstop":
+                    System.out.print("G86 ");
+                    break;
+                case "boreinwellout":
+                    System.out.print("G89 ");
+                    break;
+            }
+        }
+    }
 }

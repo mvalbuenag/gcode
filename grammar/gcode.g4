@@ -118,6 +118,10 @@ TKN_AT : 'at';
 TKN_TO : 'to';
 TKN_ARC : 'arc';
 TKN_LAPS : 'laps';
+TKN_RETRACT : 'retract';
+TKN_STAY : 'stay';
+TKN_FORWARD : 'forward';
+TKN_REPEAT : 'repeat';
 
 GCOMANDS:  'g' [0-9]+;
 GPARAMS: ([a-z][0-9]*)*;
