@@ -16,7 +16,7 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 // create a parser that feeds off the tokens buffer
         gcodeParser parser = new gcodeParser(tokens);
-        ParseTree tree = parser.init(); // begin parsing at init rule
+        ParseTree tree = parser.s(); // begin parsing at init rule
 
         // Create a generic parse tree walker that can trigger callbacks
         ParseTreeWalker walker = new ParseTreeWalker();

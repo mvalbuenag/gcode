@@ -22,14 +22,14 @@ comandos : travel
     | backto
     | spell;
 
-coordinates: (NUM 'X')? (NUM 'Y')? (NUM 'Z')?;
-coordinates2: (NUM 'A')? (NUM 'B')? (NUM 'C')?;
+coordinates: (NUM TKN_X)? (NUM TKN_Y)? (NUM TKN_Z)?;
+coordinates2: (NUM TKN_A)? (NUM TKN_B)? (NUM TKN_C)?;
 
-distances: (NUM 'I')? (NUM 'J')? (NUM 'K')?;
+distances: (NUM TKN_I)? (NUM TKN_J)? (NUM TKN_K)?;
 
-travel: 'travel' ('to' coordinates)? 'at' NUM type;   //ES NECESARIO VÁLIDAR QUE 'at' RECIBA UN PARÁMETRO ENTRE 0 Y 1
+travel: 'travel' type ('to' coordinates coordinates2)? 'at' NUM;   //ES NECESARIO VÁLIDAR QUE 'at' RECIBA UN PARÁMETRO ENTRE 0 Y 1
 type: 'fast'
-    | ('linear' ('extrude' NUM)? ('recover' NUM)? ('hit' NUM)? ('power' NUM)?) // Validar que flag sea o 0 o 1
+    | ('linear' ('arc' NUM)?)
     | (clock (('away' distances) | ('radius' NUM)) (NUM 'laps')?);
 clock: 'clock' | 'counterclock';
 // En el caso clock de la regla travel, se debe tener
@@ -101,9 +101,26 @@ backto: 'backto' backto2;
 backto2: 'point' | 'plane';
 spell: 'spell' (GCOMANDS GPARAMS)* 'cast';
 
+TKN_X : 'X';
+TKN_Y : 'Y';
+TKN_Z : 'Z';
+TKN_A : 'A';
+TKN_B : 'B';
+TKN_C : 'C';
+TKN_I : 'I';
+TKN_J : 'J';
+TKN_K : 'K';
+TKN_FAST : 'fast';
+TKN_LINEAR : 'linear';
+TKN_AWAY : 'away';
+TKN_RADIUS : 'radius';
+TKN_AT : 'at';
+TKN_TO : 'to';
+TKN_ARC : 'arc';
+TKN_LAPS : 'laps';
+
 GCOMANDS:  'g' [0-9]+;
 GPARAMS: ([a-z][0-9]*)*;
-
 
 COMENTARIO : ';'(~[\n])* -> skip;
 ESP : [ \t\r\n]+ -> skip ;
