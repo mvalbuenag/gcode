@@ -3,6 +3,7 @@ public class mygcode extends gcodeBaseListener {
     boolean isFast = false;
     boolean isClock = false;
     boolean isG51 = false;
+    boolean isG96 = false;
     @Override
     public void enterCoordinates(gcodeParser.CoordinatesContext ctx) {
         String coordinates = "";
@@ -242,6 +243,55 @@ public class mygcode extends gcodeBaseListener {
                 case "boreinwellout":
                     System.out.print("G89 ");
                     break;
+            }
+        }
+    }
+
+    @Override
+    public void enterScrew(gcodeParser.ScrewContext ctx) {
+        int counter = 0;
+        System.out.print("G70 I"+ctx.NUM(counter)+" ");
+        counter++;
+        if(ctx.TKN_ANGLE() != null){
+            System.out.print("J"+ctx.NUM(counter)+" ");
+            counter++;
+        }
+        System.out.println("L"+ctx.NUM(counter));
+    }
+
+    @Override
+    public void enterBreak(gcodeParser.BreakContext ctx) {
+        System.out.println("G80");
+    }
+
+    @Override
+    public void enterFeed2(gcodeParser.Feed2Context ctx) {
+        if(ctx.getText() != null){
+            if(ctx.TKN_ITIME() != null){
+                System.out.println("G93 F"+ctx.NUM());
+            }else if(ctx.TKN_UPM() != null){
+                System.out.println("G94 F"+ctx.NUM());
+            }else if(ctx.TKN_UPR() != null){
+                System.out.println("G95 F"+ctx.NUM());
+            }
+        }
+    }
+
+    @Override
+    public void enterSetspeed(gcodeParser.SetspeedContext ctx) {
+        if(ctx.getText() != null){
+            if(ctx.TKN_SET() != null){
+                System.out.println("G96 D"+ctx.NUM());
+                isG96 = true;
+            }else if(ctx.TKN_UNSET() != null){
+                if(isG96){
+                    System.out.println("G97");
+                    isG96 = false;
+                }else{
+                    System.out.println("G97");
+                    isG51 = false;
+                    System.out.println("WARNING -> Está usando el codigo 'unset surfspeed' sin antes haber especificado 'set surfspeed'");
+                }
             }
         }
     }

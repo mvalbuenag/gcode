@@ -122,6 +122,12 @@ TKN_RETRACT : 'retract';
 TKN_STAY : 'stay';
 TKN_FORWARD : 'forward';
 TKN_REPEAT : 'repeat';
+TKN_ANGLE : 'angle';
+TKN_ITIME : 'itime';
+TKN_UPM : 'upm';
+TKN_UPR : 'upr';
+TKN_SET : 'set';
+TKN_UNSET : 'unset';
 
 GCOMANDS:  'g' [0-9]+;
 GPARAMS: ([a-z][0-9]*)*;

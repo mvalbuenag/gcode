@@ -1,1 +1,2 @@
-cycle spodtrill forward 5
+surfspeed set 2 rpm
+surfspeed unset
