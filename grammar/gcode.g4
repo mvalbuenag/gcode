@@ -39,13 +39,7 @@ pause: 'pause' NUM time_unit;
 time_unit: ('s'|'ms');
 stop: 'stop';
 
-offset: 'offset' (set
-    | 'not'
-    | 'left'
-    | 'right'
-    | 'plus'
-    | 'less'
-    | 'zero');
+offset: 'offset' (set    | 'not'    | 'left'    | 'right'    | 'plus'    | 'less'    | 'zero');
 set: 'set' 'offset' NUM 'type' NUM ('axes' coordinates coordinates2)? ('value' NUM)?;
 
 world: 'world' world2;
@@ -110,6 +104,12 @@ TKN_C : 'C';
 TKN_I : 'I';
 TKN_J : 'J';
 TKN_K : 'K';
+TKN_NOT: 'not';
+TKN_PLUS: 'plus';
+TKN_LESS: 'less';
+TKN_ZERO: 'zero';
+TKN_LEFT: 'left';
+TKN_RIGHT: 'right';
 TKN_FAST : 'fast';
 TKN_LINEAR : 'linear';
 TKN_AWAY : 'away';
@@ -128,6 +128,7 @@ TKN_UPM : 'upm';
 TKN_UPR : 'upr';
 TKN_SET : 'set';
 TKN_UNSET : 'unset';
+TKN_VALUE: 'value';
 
 GCOMANDS:  'g' [0-9]+;
 GPARAMS: ([a-z][0-9]*)*;

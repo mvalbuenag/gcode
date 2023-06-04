@@ -1,4 +1,4 @@
-// Generated from /home/soporteit/Documentos/Lenguajes/gcode/grammar/gcode.g4 by ANTLR 4.12.0
+// Generated from C:/Users/samue/OneDrive/Documentos/Universidad/2023_1/Lenguajes de programación/Proyecto final/gcode/grammar\gcode.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
