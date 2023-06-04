@@ -1,2 +1,1 @@
-surfspeed set 2 rpm
-surfspeed unset
+break
