@@ -231,4 +231,10 @@ public interface gcodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSpell(gcodeParser.SpellContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link gcodeParser#spell2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSpell2(gcodeParser.Spell2Context ctx);
 }

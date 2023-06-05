@@ -376,4 +376,14 @@ public interface gcodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSpell(gcodeParser.SpellContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gcodeParser#spell2}.
+	 * @param ctx the parse tree
+	 */
+	void enterSpell2(gcodeParser.Spell2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link gcodeParser#spell2}.
+	 * @param ctx the parse tree
+	 */
+	void exitSpell2(gcodeParser.Spell2Context ctx);
 }

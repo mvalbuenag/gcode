@@ -1,2 +1,3 @@
 
-G0 Error semantico, se esperaba un valor de 'at' entre 0 y 1
+G50
+; WARNING -> Está usando el codigo 'scale not' sin antes haber especificado 'scale'

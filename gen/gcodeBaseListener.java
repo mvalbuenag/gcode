@@ -455,6 +455,18 @@ public class gcodeBaseListener implements gcodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSpell(gcodeParser.SpellContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSpell2(gcodeParser.Spell2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSpell2(gcodeParser.Spell2Context ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -35,7 +35,7 @@ public class Main extends Frame{
 
         JPanel panel2 = new JPanel();
         outputTextArea = new JTextArea();
-        outputTextArea.setEditable(true);
+        outputTextArea.setEditable(false);
         JScrollPane scrollPane2 = new JScrollPane(outputTextArea);
         panel2.setLayout(new BorderLayout());
         panel2.add(scrollPane2, BorderLayout.CENTER);
@@ -50,6 +50,18 @@ public class Main extends Frame{
             public void actionPerformed(ActionEvent e) {
                 button.setEnabled(false);
                 translateGCode();
+                String errorMessage = findErrorFileContent("./output/output.txt");
+                if(!errorMessage.equals("")){
+                    if(errorMessage.contains("Error")){
+                        outputTextArea.setText("");
+                        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                        errorFlag = true;
+                    }else{
+                        errorMessage = errorMessage.replace(";","");
+                        JOptionPane.showMessageDialog(null, errorMessage, "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                }
                 if(errorFlag){
                     outputTextArea.setText("");
                     errorFlag = false;
@@ -71,6 +83,7 @@ public class Main extends Frame{
 
         // Ajustar el tamaño del marco, hacerlo visible
         frame.setSize(600, 500);
+        JOptionPane.showMessageDialog(null, "Este traductor fue realizado por: \n Stevan Valbuena \n Diego Bulla \n Samuel Salgado", "Spell Translator", JOptionPane.INFORMATION_MESSAGE);
         frame.setVisible(true);
     }
 
@@ -86,6 +99,26 @@ public class Main extends Frame{
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private String findErrorFileContent(String filePath) {
+        String errorMessage = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            if(content.toString().contains("Error")){
+                errorMessage = content.toString().substring(content.toString().indexOf("Error"));
+            }else if(content.toString().contains("WARNING")){
+                errorMessage = content.toString().substring(content.toString().indexOf("; WARNING"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return errorMessage;
     }
 
     private void translateGCode() {
