@@ -7,12 +7,18 @@ public class mygcode extends gcodeBaseListener {
     boolean isG51 = false;
     boolean isG96 = false;
 
+    boolean cleanOutput = true;
+
     public void writeOutput(String text){
         BufferedWriter bw = null;
         FileWriter fw = null;
 
         try {
             File file = new File("./output/output.txt");
+            if(cleanOutput){
+                file.delete();
+                cleanOutput = false;
+            }
             // Si el archivo no existe, se crea!
             if (!file.exists()) {
                 file.createNewFile();
