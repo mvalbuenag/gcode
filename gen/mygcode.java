@@ -6,6 +6,10 @@ public class mygcode extends gcodeBaseListener {
     boolean isClock = false;
     boolean isG51 = false;
     boolean isG96 = false;
+    boolean isG41 = false;
+    boolean isG42 = false;
+    boolean isG43 = false;
+    boolean isG44 = false;
 
     public void writeOutput(String text){
         BufferedWriter bw = null;
@@ -474,6 +478,7 @@ public class mygcode extends gcodeBaseListener {
             }
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void enterBackto(gcodeParser.BacktoContext ctx){
@@ -508,5 +513,75 @@ public class mygcode extends gcodeBaseListener {
             System.out.println(m);
         }
     }
+=======
+    @Override
+    public void enterSet(gcodeParser.SetContext ctx) {
+        String paramsOffset= "";
+        int offsetNumber = Integer.parseInt(ctx.NUM(0).toString());
+        int typeNumber = Integer.parseInt(ctx.NUM(1).toString());
+        //System.out.println(offsetNumber);
+        paramsOffset= paramsOffset+" P"+ offsetNumber+" "+ "L"+typeNumber;
+        if(ctx.TKN_VALUE()!=null){
+            Double valueNumber= Double.parseDouble(ctx.NUM(2).toString());
+            paramsOffset= paramsOffset + " R"+valueNumber;
+        }
+        System.out.print(paramsOffset+" ");
+        writeOutput(paramsOffset+ " ");
+    }
+    //offset: 'offset' (set    | 'not'    | 'left'    | 'right'    | 'plus'    | 'less'    | 'zero');
+    @Override
+    public void enterOffset(gcodeParser.OffsetContext ctx) {
+        if(ctx.set()!=null){
+            System.out.print("G10 ");
+            writeOutput("G10 ");
+        }
+        if(ctx.TKN_LEFT()!=null){
+            System.out.println("G41");
+            writeOutput("G41 ");
+            isG41 = true;
+        }
+        if(ctx.TKN_RIGHT()!=null){
+            System.out.println("G42");
+            writeOutput("G42 ");
+            isG42 = true;
+        }
+        if(ctx.TKN_NOT()!=null){
+            if(isG41 || isG42){
+                System.out.println("G40");
+                writeOutput("G40 ");
+                isG41 = false;
+                isG42 = false;
+            }else{
+                System.out.println("G40");
+                writeOutput("G40 ");
+                writeOutput("WARNING -> Está usando el codigo 'offset not' sin antes haber especificado una compensación con 'offset left' u 'offset right'");
+                System.out.println("WARNING -> Está usando el codigo 'offset not' sin antes haber especificado una compensación con 'offset left' u 'offset right'");
+            }
+        }
+        if(ctx.TKN_PLUS()!=null){
+            System.out.println("G43 ");
+            writeOutput("G43 ");
+            isG43 = true;
+        }
+        if(ctx.TKN_LESS()!=null){
+            System.out.println("G44 ");
+            writeOutput("G44 ");
+            isG44 = true;
+        }
+        if(ctx.TKN_ZERO()!=null){
+            if(isG43 || isG44){
+                System.out.println("G49 ");
+                writeOutput("G49 ");
+                isG43 = false;
+                isG44 = false;
+            }else{
+                System.out.println("G49 ");
+                writeOutput("G49 ");
+                writeOutput("WARNING -> Está usando el codigo 'offset zero' sin antes haber especificado una compensación con 'offset plus' u 'offset less'");
+                System.out.println("WARNING -> Está usando el codigo 'offset zero' sin antes haber especificado una compensación con 'offset plus' u 'offset less'");
+            }
+        }
+    }
+>>>>>>> 5d7de15bd3a1644dd97f72f3626a2bb7497d1a9d
 
 }

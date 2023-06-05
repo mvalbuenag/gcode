@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Generated from D:/Diego/Programación/Lenguajes de Programación/Proyecto/gcode/grammar\gcode.g4 by ANTLR 4.12.0
+=======
+// Generated from C:/Users/samue/OneDrive/Documentos/Universidad/2023_1/Lenguajes de programación/Proyecto final/gcode/grammar\gcode.g4 by ANTLR 4.12.0
+>>>>>>> 5d7de15bd3a1644dd97f72f3626a2bb7497d1a9d
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

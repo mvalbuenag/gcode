@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 spell
 G10 A2 B3
 G11
 G12 X1 Y2 Z3 A5
 cast
+=======
+offset set offset 4 type 5 5X 6Y value 2.4
+>>>>>>> 5d7de15bd3a1644dd97f72f3626a2bb7497d1a9d
