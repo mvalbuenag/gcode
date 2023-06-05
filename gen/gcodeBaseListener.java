@@ -1,4 +1,4 @@
-// Generated from /home/soporteit/Documentos/Lenguajes/gcode/grammar/gcode.g4 by ANTLR 4.12.0
+// Generated from D:/Diego/Programación/Lenguajes de Programación/Proyecto/gcode/grammar\gcode.g4 by ANTLR 4.12.0
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -455,6 +455,18 @@ public class gcodeBaseListener implements gcodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSpell(gcodeParser.SpellContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSpell2(gcodeParser.Spell2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSpell2(gcodeParser.Spell2Context ctx) { }
 
 	/**
 	 * {@inheritDoc}

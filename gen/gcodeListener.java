@@ -1,4 +1,4 @@
-// Generated from /home/soporteit/Documentos/Lenguajes/gcode/grammar/gcode.g4 by ANTLR 4.12.0
+// Generated from D:/Diego/Programación/Lenguajes de Programación/Proyecto/gcode/grammar\gcode.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -376,4 +376,14 @@ public interface gcodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSpell(gcodeParser.SpellContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gcodeParser#spell2}.
+	 * @param ctx the parse tree
+	 */
+	void enterSpell2(gcodeParser.Spell2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link gcodeParser#spell2}.
+	 * @param ctx the parse tree
+	 */
+	void exitSpell2(gcodeParser.Spell2Context ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from /home/soporteit/Documentos/Lenguajes/gcode/grammar/gcode.g4 by ANTLR 4.12.0
+// Generated from D:/Diego/Programación/Lenguajes de Programación/Proyecto/gcode/grammar\gcode.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -270,4 +270,11 @@ public class gcodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSpell(gcodeParser.SpellContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSpell2(gcodeParser.Spell2Context ctx) { return visitChildren(ctx); }
 }

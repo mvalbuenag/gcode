@@ -49,12 +49,12 @@ offset: 'offset' (set
 set: 'set' 'offset' NUM 'type' NUM ('axes' coordinates coordinates2)? ('value' NUM)?;
 
 world: 'world' world2;
-world2: 'cartesian'
-    | 'polar'
-    | 'rotate' coordinates ('angle' NUM)?
-    | 'unrotate'
-    | 'o' positioning coordinates
-    | 'working';
+world2: TKN_CARTESIAN
+    | TKN_POLAR
+    | TKN_ROTATE coordinates ('angle' NUM)?
+    | TKN_UNROTATE
+    | TKN_O positioning coordinates
+    | TKN_WORKING;
 positioning: 'relative' | 'absolute';
 
 plane: 'plane' plane2;
@@ -99,7 +99,8 @@ surfspeed: 'surfspeed' setspeed;
 setspeed: 'set' NUM 'rpm' | 'unset';
 backto: 'backto' backto2;
 backto2: 'point' | 'plane';
-spell: 'spell' (GCOMANDS GPARAMS)* 'cast';
+spell: 'spell' spell2 'cast';
+spell2: (GCOMANDS GPARAMS*)*;
 
 TKN_X : 'X';
 TKN_Y : 'Y';
@@ -128,9 +129,15 @@ TKN_UPM : 'upm';
 TKN_UPR : 'upr';
 TKN_SET : 'set';
 TKN_UNSET : 'unset';
+TKN_CARTESIAN: 'cartesian';
+TKN_POLAR: 'polar';
+TKN_ROTATE: 'rotate';
+TKN_UNROTATE: 'unrotate';
+TKN_O: 'o';
+TKN_WORKING: 'working';
 
-GCOMANDS:  'g' [0-9]+;
-GPARAMS: ([a-z][0-9]*)*;
+GCOMANDS:  'G' [0-9]+;
+GPARAMS: ([A-Z][0-9]*);
 
 COMENTARIO : ';'(~[\n])* -> skip;
 ESP : [ \t\r\n]+ -> skip ;

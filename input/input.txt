@@ -1,1 +1,5 @@
-break
+spell
+G10 A2 B3
+G11
+G12 X1 Y2 Z3 A5
+cast

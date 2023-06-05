@@ -346,6 +346,76 @@ public class mygcode extends gcodeBaseListener {
     }
 
     @Override
+    public void enterPoint(gcodeParser.PointContext ctx){
+        if (ctx.NUM() != null){
+            int n = Integer.parseInt(ctx.NUM().getText());
+            if (n < 0 || n > 5){
+                System.err.printf("Error semantico, el rango de valores para un punto es [0, 5]");
+            } else {
+                int gnum = 54;
+                writeOutput("G" + (gnum + (n - 1)) + " ");
+                System.out.print("G" + (gnum + n) + " ");
+                enterCoordinates(ctx.coordinates());
+            }
+
+        }
+    }
+
+    @Override
+    public void enterWorld2(gcodeParser.World2Context ctx) {
+        if(ctx.getText() != null ){
+           if (ctx.TKN_CARTESIAN() != null){
+               writeOutput("G15 ");
+               System.out.print("G15");
+           }
+
+           if (ctx.TKN_POLAR() != null){
+               writeOutput("G16 ");
+               System.out.print("G16 ");
+           }
+           if (ctx.TKN_ROTATE() != null){
+               writeOutput("G68");
+               System.out.print("G68 ");
+               enterCoordinates(ctx.coordinates());
+               if (ctx.NUM() != null){
+                   writeOutput(" R" + ctx.NUM().toString());
+                   System.out.print(" R" + ctx.NUM().toString());
+               }
+           }
+           if (ctx.TKN_UNROTATE() != null){
+               writeOutput("G69");
+               System.out.print("G69 ");
+           }
+           if (ctx.TKN_O() != null){
+               writeOutput("G68");
+               System.out.print("G68 ");
+               enterPositioning(ctx.positioning());
+               enterCoordinates(ctx.coordinates());
+           }
+           if (ctx.TKN_WORKING() != null){
+               writeOutput("G92");
+               System.out.print("G92 ");
+           }
+        }
+    }
+
+        @Override
+    public void enterPositioning(gcodeParser.PositioningContext ctx) {
+        if(ctx.getText() != null ){
+            switch (ctx.getText()){
+                case "absolute":
+                    writeOutput("G90 ");
+                    System.out.print("G90 ");
+                    break;
+                case "relative":
+                    writeOutput("G91 ");
+                    System.out.print("G91 ");
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void enterScrew(gcodeParser.ScrewContext ctx) {
         int counter = 0;
         writeOutput("G70 I"+ctx.NUM(counter)+" ");
@@ -404,4 +474,39 @@ public class mygcode extends gcodeBaseListener {
             }
         }
     }
+
+    @Override
+    public void enterBackto(gcodeParser.BacktoContext ctx){
+        if (ctx.backto2() != null){
+            switch (ctx.backto2().getText()){
+                case "point":
+                    writeOutput("G98 ");
+                    System.out.println("G98 ");
+                    break;
+                case "plane":
+                    writeOutput("G99 ");
+                    System.out.println("G99 ");
+                    break;
+            }
+        }
+    }
+    @Override
+    public void enterSpell(gcodeParser.SpellContext ctx){
+        if (ctx.spell2() != null){
+            String spell = ctx.spell2().getText();
+            String[] elemn = spell.split("[A-Z]");
+            String[] elems = spell.split("[0-9]+");
+            String m = "";
+            for (int i = 0; i < elems.length; i++){
+                if (i != 0 && elems[i].equals("G")){
+                    m = m + "\n";
+                }
+                m = m + elems[i] + elemn[i + 1] + " ";
+
+            }
+            writeOutput(m);
+            System.out.println(m);
+        }
+    }
+
 }
